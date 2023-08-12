@@ -1,31 +1,40 @@
 import { StyleSheet } from "react-native";
 
-import colors from "../../styles/colors";
+import { theme } from "@/styles";
 
 export const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    paddingVertical: 48,
+  },
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "space-between",
   },
   title: {
-    color: colors.heading,
+    fontFamily: theme.fonts.heading,
+    color: theme.colors.heading,
     fontSize: 32,
-    fontWeight: "bold",
     textAlign: "center",
     marginTop: 38,
-    maxWidth: 222,
+    lineHeight: 38,
   },
   subtitle: {
+    fontFamily: theme.fonts.text,
     textAlign: "center",
     fontSize: 18,
     paddingHorizontal: 20,
-    color: colors.heading,
-    maxWidth: 288,
+    color: theme.colors.heading,
+    maxWidth: 340,
   },
   button: {
     marginBottom: 10,
     height: 56,
     width: 56,
+  },
+  buttonIcon: {
+    color: theme.colors.white,
+    fontSize: 24,
   },
 });

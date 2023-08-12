@@ -3,17 +3,23 @@ import { Text, TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { styles } from "./styles";
 
 interface ButtonProps extends TouchableOpacityProps {
-  title: string
+  title?: string
 }
 
-export function Button({ title, ...rest }: ButtonProps) {
+export function Button({ title, style, children, ...rest }: ButtonProps) {
+  const buttonStyles = {
+    ...styles.button,
+    ...(style as object)
+  }
+
   return (
     <TouchableOpacity 
-      style={styles.button}
+      style={buttonStyles}
       activeOpacity={0.7} 
       {...rest}
     >
-      <Text>{title}</Text>
+      {title ? <Text style={styles.text}>{title}</Text> : null}
+      {children}
     </TouchableOpacity>
   )
 }
