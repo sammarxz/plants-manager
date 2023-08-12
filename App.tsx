@@ -8,7 +8,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 
-import { UserIdentification } from "@/pages";
+import { UserConfirmation } from "@/pages";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,7 +30,7 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <UserIdentification />
+      <UserConfirmation />
       <StatusBar style="dark" />
     </View>
   );
