@@ -1,19 +1,18 @@
-import { Feather } from '@expo/vector-icons';
 import { Image, SafeAreaView, Text, View } from "react-native";
+import { Feather } from "@expo/vector-icons";
+
+import wateringImage from "@/assets/watering.png";
+import { Button } from "@/components";
 
 import { styles } from "./styles";
-
-import wateringImage from '@/assets/watering.png';
-
-import { Button } from "@/components";
 
 export function Welcome() {
   return (
     <View style={styles.wrapper}>
       <SafeAreaView style={styles.container}>
         <Text style={styles.title}>
-          Gerencie {'\n'} 
-          suas plantas {'\n'}
+          Gerencie {"\n"}
+          suas plantas {"\n"}
           de forma fácil
         </Text>
         <Image source={wateringImage} />
@@ -26,5 +25,5 @@ export function Welcome() {
         </Button>
       </SafeAreaView>
     </View>
-  )
+  );
 }
