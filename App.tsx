@@ -10,7 +10,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 
-import { Routes } from "@/routes";
+import { RootRoutes } from "@/routes";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,7 +32,7 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <Routes />
+      <RootRoutes />
       <StatusBar style="dark" />
     </View>
   );

@@ -1,15 +1,18 @@
 import { Image, SafeAreaView, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import wateringImage from "@/assets/watering.png";
 import { Button } from "@/components";
+import { RootStackParamList } from "@/routes/root.routes";
 
 import { styles } from "./styles";
-import { StackScreenProps } from "@react-navigation/stack";
-import { useNavigation } from "@react-navigation/native";
+
+type WelcomeProps = StackNavigationProp<RootStackParamList, "Welcome">;
 
 export function Welcome() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<WelcomeProps>();
 
   return (
     <View style={styles.wrapper}>

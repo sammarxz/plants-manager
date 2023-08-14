@@ -1,15 +1,17 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { UserConfirmation, UserIdentification, Welcome } from "@/pages";
+import {
+  PlantSelection,
+  UserConfirmation,
+  UserIdentification,
+  Welcome,
+} from "@/pages";
 
 import { theme } from "@/styles";
 
-const Stack = createStackNavigator();
+import { RootStackParamList } from "./root.routes";
 
-type RootStackParamList = {
-  Welcome: undefined;
-  Details: undefined;
-};
+const Stack = createStackNavigator<RootStackParamList>();
 
 export function StackRoutes() {
   return (
@@ -23,7 +25,8 @@ export function StackRoutes() {
     >
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="UserIdentification" component={UserIdentification} />
-      <Stack.Screen name="UserCnfirmation" component={UserConfirmation} />
+      <Stack.Screen name="UserConfirmation" component={UserConfirmation} />
+      <Stack.Screen name="PlantSelection" component={PlantSelection} />
     </Stack.Navigator>
   );
 }

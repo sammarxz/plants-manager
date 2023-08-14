@@ -1,9 +1,20 @@
 import { Text, View, SafeAreaView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+import { Button } from "@/components";
+import { RootStackParamList } from "@/routes/root.routes";
 
 import { styles } from "./styles";
-import { Button } from "@/components";
+
+type UserConfirmationProps = StackNavigationProp<
+  RootStackParamList,
+  "UserConfirmation"
+>;
 
 export function UserConfirmation() {
+  const navigation = useNavigation<UserConfirmationProps>();
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -15,7 +26,10 @@ export function UserConfirmation() {
           </Text>
         </View>
         <View style={styles.footer}>
-          <Button title="Começar" />
+          <Button
+            title="Começar"
+            onPress={() => navigation.navigate("PlantSelection")}
+          />
         </View>
       </View>
     </SafeAreaView>

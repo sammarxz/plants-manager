@@ -7,18 +7,25 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import { Button } from "@/components";
 import { theme } from "@/styles";
-import { useNavigation } from "@react-navigation/core";
+import { RootStackParamList } from "@/routes/root.routes";
 
 import { styles } from "./styles";
+
+type UserIdentificationProps = StackNavigationProp<
+  RootStackParamList,
+  "UserIdentification"
+>;
 
 export function UserIdentification() {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   const [name, setName] = useState("");
-  const navigation = useNavigation();
+  const navigation = useNavigation<UserIdentificationProps>();
 
   function handleInputBlur() {
     setIsFocused(false);
@@ -36,7 +43,7 @@ export function UserIdentification() {
   }
 
   function handleSubmit() {
-    navigation.navigate("UserCnfirmation");
+    navigation.navigate("UserConfirmation");
   }
 
   return (
