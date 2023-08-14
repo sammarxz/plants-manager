@@ -1,3 +1,5 @@
+import "react-native-gesture-handler";
+
 import { useCallback } from "react";
 import {
   Jost_400Regular,
@@ -8,7 +10,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 
-import { UserConfirmation } from "@/pages";
+import { Routes } from "@/routes";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,7 +32,7 @@ export default function App() {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <UserConfirmation />
+      <Routes />
       <StatusBar style="dark" />
     </View>
   );

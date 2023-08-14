@@ -5,8 +5,12 @@ import wateringImage from "@/assets/watering.png";
 import { Button } from "@/components";
 
 import { styles } from "./styles";
+import { StackScreenProps } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
 
 export function Welcome() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.wrapper}>
       <SafeAreaView style={styles.container}>
@@ -20,7 +24,10 @@ export function Welcome() {
           Não esqueça mais de regar suas plantas. Nós cuidamos de lembrar você
           sempre que precisar.
         </Text>
-        <Button style={styles.button}>
+        <Button
+          style={styles.button}
+          onPress={() => navigation.navigate("UserIdentification")}
+        >
           <Feather style={styles.buttonIcon} name="chevron-right" />
         </Button>
       </SafeAreaView>
