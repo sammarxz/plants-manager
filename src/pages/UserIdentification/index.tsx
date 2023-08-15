@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -9,10 +10,12 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { Button } from "@/components";
 import { theme } from "@/styles";
 import { RootStackParamList } from "@/routes/root.routes";
+import { usernameStorageKey } from "@/config/keys";
 
 import { styles } from "./styles";
 
@@ -42,7 +45,12 @@ export function UserIdentification() {
     setName(value);
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
+    if (!name) {
+      return Alert.alert("Me diz, como chamar você? 🤔");
+    }
+
+    await AsyncStorage.setItem(usernameStorageKey, name);
     navigation.navigate("UserConfirmation");
   }
 

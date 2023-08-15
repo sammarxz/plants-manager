@@ -32,6 +32,19 @@ export function PlantSelection() {
   const [isLoading, setLoading] = useState(true);
   const [plants, setPlants] = useState<Plant[]>([]);
 
+  useEffect(() => {
+    // Simulate a loading delay
+    const timer = setTimeout(async () => {
+      const fetchedPlants = await data.plants.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      setPlants((prevPlants) => [...prevPlants, ...fetchedPlants]);
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const sortedEnvironments = data.plants_environments.sort((a, b) =>
     a.title.localeCompare(b.title)
   );
@@ -45,19 +58,6 @@ export function PlantSelection() {
       : plants.filter((plant) =>
           plant.environments.includes(selectedEnvironment)
         );
-
-  useEffect(() => {
-    // Simulate a loading delay
-    const timer = setTimeout(() => {
-      const fetchedPlants = data.plants.sort((a, b) =>
-        a.name.localeCompare(b.name)
-      );
-      setPlants((prevPlants) => [...prevPlants, ...fetchedPlants]);
-      setLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   if (isLoading) {
     return <Load />;
