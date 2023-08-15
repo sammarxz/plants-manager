@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View, Text, Image, Platform, Alert } from "react-native";
 import { SvgFromUri } from "react-native-svg";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
@@ -12,16 +12,22 @@ import waterDrop from "@/assets/waterdrop.png";
 import { Plant, savePlant } from "@/libs/storage";
 
 import { styles } from "./styles";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "@/routes/root.routes";
 
 interface RouteParamsType {
   plant: Plant;
 }
 
+type PlantSaveProps = StackNavigationProp<RootStackParamList, "PlantSave">;
+
 export function PlantSave() {
   const [selectedDateTime, setSelectedDateTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(Platform.OS === "ios");
 
+  const navigation = useNavigation<PlantSaveProps>();
   const route = useRoute();
+
   const { plant } = route.params as RouteParamsType;
 
   function handleChangeTime(
@@ -51,6 +57,15 @@ export function PlantSave() {
       await savePlant({
         ...plant,
         dateTimeNotification: selectedDateTime,
+      });
+
+      navigation.navigate("Confirmation", {
+        title: "Tudo certo",
+        subtitle:
+          "Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha com bastante amor.",
+        buttonTitle: "Muito Obrigado :)",
+        emoji: "💚",
+        nextScreen: "MyPlants",
       });
     } catch (err) {
       Alert.alert(err as string);
@@ -91,7 +106,7 @@ export function PlantSave() {
             />
           ) : null}
         </View>
-        <Button title="Cadastrar planta" onPress={() => handlePlantSave} />
+        <Button title="Cadastrar planta" onPress={handlePlantSave} />
       </View>
     </View>
   );

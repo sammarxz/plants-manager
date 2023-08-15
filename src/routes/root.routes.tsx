@@ -1,15 +1,19 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { StackRoutes } from "./stack.routes";
+
 import { Plant } from "@/libs/storage";
+import { ConfirmationParams } from "@/pages/Confirmation";
+
+import { StackRoutes } from "./stack.routes";
 
 export type RootStackParamList = {
   Welcome: undefined;
   UserIdentification: undefined;
-  UserConfirmation: undefined;
+  Confirmation: ConfirmationParams;
   PlantSelection: undefined;
   PlantSave: {
     plant: Plant;
   };
+  MyPlants: undefined;
 };
 
 export const RootRoutes = () => (

@@ -1,5 +1,6 @@
 export { UserIdentification } from "./UserIdentification";
 export { Welcome } from "./Welcome";
-export { UserConfirmation } from "./UserConfirmation";
+export { Confirmation } from "./Confirmation";
 export { PlantSelection } from "./PlantSelection";
 export { PlantSave } from "./PlantSave";
+export { MyPlants } from "./MyPlants";
