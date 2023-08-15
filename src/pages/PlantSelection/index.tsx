@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
 import { View, Text, FlatList } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import { Header, EnvironmentButton, Load } from "@/components";
 
 import { PlantCard } from "@/components";
-
 import { data } from "@/services/api";
+import { RootStackParamList } from "@/routes/root.routes";
 
 import { styles } from "./styles";
+
+type PlantSelectionProps = StackNavigationProp<
+  RootStackParamList,
+  "PlantSelection"
+>;
 
 interface Environment {
   key: string;
   title: string;
 }
 
-interface Plant {
+export interface Plant {
   id: number;
   name: string;
   about: string;
@@ -31,6 +38,7 @@ export function PlantSelection() {
   const [selectedEnvironment, setSelectedEnvironment] = useState("all");
   const [isLoading, setLoading] = useState(true);
   const [plants, setPlants] = useState<Plant[]>([]);
+  const navigation = useNavigation<PlantSelectionProps>();
 
   useEffect(() => {
     // Simulate a loading delay
@@ -58,6 +66,10 @@ export function PlantSelection() {
       : plants.filter((plant) =>
           plant.environments.includes(selectedEnvironment)
         );
+
+  function handlePlantSelect(plant: Plant) {
+    navigation.navigate("PlantSave", { plant });
+  }
 
   if (isLoading) {
     return <Load />;
@@ -92,7 +104,9 @@ export function PlantSelection() {
       <View style={styles.plantsWrapper}>
         <FlatList
           data={filteredPlants}
-          renderItem={({ item }) => <PlantCard data={item} />}
+          renderItem={({ item }) => (
+            <PlantCard data={item} onPress={() => handlePlantSelect(item)} />
+          )}
           showsVerticalScrollIndicator={false}
           horizontal={false}
           numColumns={2}

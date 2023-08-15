@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 import {
+  PlantSave,
   PlantSelection,
   UserConfirmation,
   UserIdentification,
@@ -27,6 +28,7 @@ export function StackRoutes() {
       <Stack.Screen name="UserIdentification" component={UserIdentification} />
       <Stack.Screen name="UserConfirmation" component={UserConfirmation} />
       <Stack.Screen name="PlantSelection" component={PlantSelection} />
+      <Stack.Screen name="PlantSave" component={PlantSave} />
     </Stack.Navigator>
   );
 }
