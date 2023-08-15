@@ -1,21 +1,39 @@
-import { StyleSheet } from "react-native";
+import { ViewStyle, TextStyle, StyleSheet } from "react-native";
 
 import { theme } from "@/styles";
+interface ButtonStyles {
+  button: ViewStyle;
+  text: TextStyle;
+}
 
-export const styles = StyleSheet.create({
+export const sharedStyles: ButtonStyles = {
   button: {
-    backgroundColor: theme.colors.green,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 16,
     height: 56,
   },
-  disabledButton: {
-    opacity: 0.5
-  },
   text: {
     fontSize: 16,
     fontFamily: theme.fonts.heading,
     color: theme.colors.white,
+  },
+};
+
+export const styles = StyleSheet.create({
+  primaryButton: {
+    ...sharedStyles.button,
+    backgroundColor: theme.colors.green,
+  },
+  secondaryButton: {
+    ...sharedStyles.button,
+    backgroundColor: theme.colors.shape,
+  },
+  disabledButton: {
+    opacity: 0.5,
+  },
+  secondaryButtonText: {
+    ...sharedStyles.text,
+    color: theme.colors.body_dark,
   },
 });
