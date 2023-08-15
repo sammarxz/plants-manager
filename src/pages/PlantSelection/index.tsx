@@ -36,7 +36,7 @@ export function PlantSelection() {
       );
       setPlants((prevPlants) => [...prevPlants, ...fetchedPlants]);
       setLoading(false);
-    }, 3000);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, []);
