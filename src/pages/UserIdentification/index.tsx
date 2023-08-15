@@ -15,7 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "@/components";
 import { theme } from "@/styles";
 import { RootStackParamList } from "@/routes/root.routes";
-import { usernameStorageKey } from "@/config/keys";
+import { storageKeys } from "@/config/keys";
 
 import { styles } from "./styles";
 
@@ -50,8 +50,12 @@ export function UserIdentification() {
       return Alert.alert("Me diz, como chamar você? 🤔");
     }
 
-    await AsyncStorage.setItem(usernameStorageKey, name);
-    navigation.navigate("UserConfirmation");
+    try {
+      await AsyncStorage.setItem(storageKeys.username, name);
+      navigation.navigate("UserConfirmation");
+    } catch {
+      Alert.alert("Não foi possível salver o seu nome de usuário. 😢");
+    }
   }
 
   return (

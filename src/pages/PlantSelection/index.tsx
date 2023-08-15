@@ -8,6 +8,7 @@ import { Header, EnvironmentButton, Load } from "@/components";
 import { PlantCard } from "@/components";
 import { data } from "@/services/api";
 import { RootStackParamList } from "@/routes/root.routes";
+import { Plant } from "@/libs/storage";
 
 import { styles } from "./styles";
 
@@ -19,19 +20,6 @@ type PlantSelectionProps = StackNavigationProp<
 interface Environment {
   key: string;
   title: string;
-}
-
-export interface Plant {
-  id: number;
-  name: string;
-  about: string;
-  water_tips: string;
-  photo: string;
-  environments: string[];
-  frequency: {
-    times: number;
-    repeat_every: string;
-  };
 }
 
 export function PlantSelection() {

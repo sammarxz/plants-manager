@@ -9,12 +9,11 @@ import { addMinutes, format, isBefore } from "date-fns";
 
 import { Button } from "@/components";
 import waterDrop from "@/assets/waterdrop.png";
-
-import { Plant } from "../PlantSelection";
+import { Plant, savePlant } from "@/libs/storage";
 
 import { styles } from "./styles";
 
-interface Params {
+interface RouteParamsType {
   plant: Plant;
 }
 
@@ -23,7 +22,7 @@ export function PlantSave() {
   const [showDatePicker, setShowDatePicker] = useState(Platform.OS === "ios");
 
   const route = useRoute();
-  const { plant } = route.params as Params;
+  const { plant } = route.params as RouteParamsType;
 
   function handleChangeTime(
     _event: DateTimePickerEvent,
@@ -45,6 +44,17 @@ export function PlantSave() {
 
   function handleOpenDateTimePickerForAndroid() {
     setShowDatePicker((prevState) => !prevState);
+  }
+
+  async function handlePlantSave() {
+    try {
+      await savePlant({
+        ...plant,
+        dateTimeNotification: selectedDateTime,
+      });
+    } catch (err) {
+      Alert.alert(err as string);
+    }
   }
 
   return (
@@ -81,7 +91,7 @@ export function PlantSave() {
             />
           ) : null}
         </View>
-        <Button title="Cadastrar planta" onPress={() => {}} />
+        <Button title="Cadastrar planta" onPress={() => handlePlantSave} />
       </View>
     </View>
   );

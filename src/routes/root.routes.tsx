@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StackRoutes } from "./stack.routes";
-import { Plant } from "@/pages/PlantSelection";
+import { Plant } from "@/libs/storage";
 
 export type RootStackParamList = {
   Welcome: undefined;
