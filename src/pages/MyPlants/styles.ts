@@ -41,5 +41,25 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: theme.fonts.heading,
     color: theme.colors.heading
+  },
+  noPlantsContainer: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 24
+  },
+  noPlantsEmoji: {
+    fontSize: 72,
+  },
+  noPlantsText: {
+    fontFamily: theme.fonts.complement,
+    color: theme.colors.heading,
+    fontSize: 18,
+    textAlign: 'center'
+  },
+  noPlantsFooter: {
+    width: '100%',
+    paddingHorizontal: 60
   }
 })

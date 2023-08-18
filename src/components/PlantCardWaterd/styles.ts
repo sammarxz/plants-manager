@@ -33,5 +33,19 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: theme.fonts.heading,
     color: theme.colors.body_dark,
+  },
+  buttonRemove: {
+    // flex: 1,
+    // height: 100,
+    width: 100,
+    backgroundColor: theme.colors.white,
+    // marginTop: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+    right: 0,
+    paddingHorizontal: 32,
+    paddingVertical: 32,
+    borderRadius: 20
   }
 });

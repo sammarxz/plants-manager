@@ -17,7 +17,7 @@ export interface Plant {
   dateTimeNotification?: Date
 }
 
-interface StoragePlantsProps {
+export interface StoragePlantsProps {
   [id: string]: {
     data: Plant
   }
@@ -63,5 +63,17 @@ export async function loadPlants(): Promise<Plant[]> {
     return plantsSorted;
   } catch {
     throw new Error("Error getting the plants");
+  }
+}
+
+export async function removePLant(plant: Plant) {
+  try {
+    const data = await AsyncStorage.getItem(storageKeys.plants);
+    const plants = data ? (JSON.parse(data) as StoragePlantsProps): {}
+
+    delete plants[plant.id];
+    await AsyncStorage.setItem(storageKeys.plants, JSON.stringify(plants));
+  } catch {
+    throw new Error("Error deleting the plant")
   }
 }
