@@ -32,7 +32,11 @@ export function PlantCardWaterd({
   }
 
   return (
-    <Swipeable overshootRight={false} renderRightActions={renderActions}>
+    <Swipeable
+      overshootRight={false}
+      renderRightActions={renderActions}
+      onSwipeableOpen={handleRemove}
+    >
       <RectButton style={styles.container} {...rest}>
         <SvgFromUri uri={data.photo} width={50} height={50} />
         <Text style={styles.title}>{data.name}</Text>

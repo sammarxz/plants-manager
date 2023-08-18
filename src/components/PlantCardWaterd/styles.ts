@@ -35,11 +35,8 @@ export const styles = StyleSheet.create({
     color: theme.colors.body_dark,
   },
   buttonRemove: {
-    // flex: 1,
-    // height: 100,
     width: 100,
     backgroundColor: theme.colors.white,
-    // marginTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',

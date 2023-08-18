@@ -7,7 +7,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 
 import { Button, Header, Load, PlantCardWaterd } from "@/components";
 import waterDrop from "@/assets/waterdrop.png";
-import { Plant, loadPlants, removePLant } from "@/libs/storage";
+import { Plant, loadPlants, removePlant } from "@/libs/storage";
 import { RootStackParamList } from "@/routes/root.routes";
 
 import { styles } from "./styles";
@@ -62,7 +62,7 @@ export function MyPlants() {
         text: "Sim 😢",
         onPress: async () => {
           try {
-            await removePLant(plant);
+            await removePlant(plant.id);
             setMyPlants((prevState) =>
               prevState.filter((item) => item.id !== plant.id)
             );
