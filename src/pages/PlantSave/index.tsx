@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, Image, Platform, Alert } from "react-native";
+import { View, Text, Image, Platform, Alert, ScrollView } from "react-native";
 import { SvgFromUri } from "react-native-svg";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import DateTimePicker, {
@@ -73,41 +73,46 @@ export function PlantSave() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.plantInfo}>
-        <SvgFromUri uri={plant.photo} height={150} width={150} />
-        <Text style={styles.plantName}>{plant.name}</Text>
-        <Text style={styles.plantAbout}>{plant.about}</Text>
-      </View>
-      <View style={styles.controller}>
-        <View style={styles.tipContainer}>
-          <Image source={waterDrop} style={styles.tipImage} />
-          <Text style={styles.tipText}>{plant.water_tips}</Text>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.container}
+    >
+      <View style={styles.container}>
+        <View style={styles.plantInfo}>
+          <SvgFromUri uri={plant.photo} height={150} width={150} />
+          <Text style={styles.plantName}>{plant.name}</Text>
+          <Text style={styles.plantAbout}>{plant.about}</Text>
         </View>
-        <View style={styles.dateTimePicker}>
-          <Text style={styles.alertLabel}>
-            Ecolha o melhor horário para ser lembrado:
-          </Text>
-          {showDatePicker ? (
-            <DateTimePicker
-              value={selectedDateTime}
-              mode="time"
-              display="spinner"
-              onChange={handleChangeTime}
-              minimumDate={new Date()}
-            />
-          ) : null}
+        <View style={styles.controller}>
+          <View style={styles.tipContainer}>
+            <Image source={waterDrop} style={styles.tipImage} />
+            <Text style={styles.tipText}>{plant.water_tips}</Text>
+          </View>
+          <View style={styles.dateTimePicker}>
+            <Text style={styles.alertLabel}>
+              Ecolha o melhor horário para ser lembrado:
+            </Text>
+            {showDatePicker ? (
+              <DateTimePicker
+                value={selectedDateTime}
+                mode="time"
+                display="spinner"
+                onChange={handleChangeTime}
+                minimumDate={new Date()}
+              />
+            ) : null}
 
-          {Platform.OS === "android" ? (
-            <Button
-              onPress={handleOpenDateTimePickerForAndroid}
-              title={`Horário: ${format(selectedDateTime, "HH:mm")}`}
-              variant="secondary"
-            />
-          ) : null}
+            {Platform.OS === "android" ? (
+              <Button
+                onPress={handleOpenDateTimePickerForAndroid}
+                title={`Horário: ${format(selectedDateTime, "HH:mm")}`}
+                variant="secondary"
+              />
+            ) : null}
+          </View>
+          <Button title="Cadastrar planta" onPress={handlePlantSave} />
         </View>
-        <Button title="Cadastrar planta" onPress={handlePlantSave} />
       </View>
-    </View>
+    </ScrollView>
   );
 }
