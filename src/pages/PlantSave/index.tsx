@@ -9,11 +9,12 @@ import { addMinutes, format, isBefore } from "date-fns";
 
 import { Button } from "@/components";
 import waterDrop from "@/assets/waterdrop.png";
-import { Plant, savePlant } from "@/libs/storage";
+import { Plant } from "@/libs/storage";
 
 import { styles } from "./styles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "@/routes/root.routes";
+import { usePlants } from "@/hooks";
 
 interface RouteParamsType {
   plant: Plant;
@@ -24,6 +25,7 @@ type PlantSaveProps = StackNavigationProp<RootStackParamList, "PlantSave">;
 export function PlantSave() {
   const [selectedDateTime, setSelectedDateTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(Platform.OS === "ios");
+  const { plantSave } = usePlants();
 
   const navigation = useNavigation<PlantSaveProps>();
   const route = useRoute();
@@ -54,18 +56,15 @@ export function PlantSave() {
 
   async function handlePlantSave() {
     try {
-      await savePlant({
-        ...plant,
-        dateTimeNotification: selectedDateTime,
-      });
-
-      navigation.navigate("Confirmation", {
-        title: "Tudo certo",
-        subtitle:
-          "Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha com bastante amor.",
-        buttonTitle: "Muito Obrigado :)",
-        emoji: "💚",
-        nextScreen: "MyPlants",
+      await plantSave(plant, selectedDateTime, () => {
+        navigation.navigate("Confirmation", {
+          title: "Tudo certo",
+          subtitle:
+            "Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha com bastante amor.",
+          buttonTitle: "Muito Obrigado :)",
+          emoji: "💚",
+          nextScreen: "MyPlants",
+        });
       });
     } catch (err) {
       Alert.alert(err as string);

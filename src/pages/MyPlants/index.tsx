@@ -7,72 +7,16 @@ import { StackNavigationProp } from "@react-navigation/stack";
 
 import { Button, Header, Load, PlantCardWaterd } from "@/components";
 import waterDrop from "@/assets/waterdrop.png";
-import { Plant, loadPlants, removePlant } from "@/libs/storage";
 import { RootStackParamList } from "@/routes/root.routes";
 
 import { styles } from "./styles";
+import { usePlants } from "@/hooks";
 
 type MyPlantsnProps = StackNavigationProp<RootStackParamList, "Confirmation">;
 
 export function MyPlants() {
-  const [myPlants, setMyPlants] = useState<Plant[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [nextWaterd, setNextWaterd] = useState("");
+  const { myPlants, isLoading, nextWatered, plantRemove } = usePlants();
   const navigator = useNavigation<MyPlantsnProps>();
-
-  async function loadStorageData() {
-    const plantsStorage = await loadPlants();
-    return plantsStorage;
-  }
-
-  function getFormatedNextWatered(plants: Plant[]): string {
-    const nexTime = formatDistance(
-      new Date(plants[0].dateTimeNotification!).getTime(),
-      new Date().getTime(),
-      { locale: pt }
-    );
-
-    return `Não esqueça de regar a ${plants[0].name} à ${nexTime}`;
-  }
-
-  useEffect(() => {
-    async function initialSetup() {
-      const plants = await loadStorageData();
-
-      setMyPlants(plants);
-      setIsLoading(false);
-
-      if (plants.length === 0) {
-        return;
-      }
-
-      setNextWaterd(() => getFormatedNextWatered(plants));
-    }
-
-    initialSetup();
-  }, []);
-
-  function handleRemovePlant(plant: Plant) {
-    Alert.alert("Remover", `Deseja remover a planta ${plant.name}?`, [
-      {
-        text: "Não 🙏",
-        style: "cancel",
-      },
-      {
-        text: "Sim 😢",
-        onPress: async () => {
-          try {
-            await removePlant(plant.id);
-            setMyPlants((prevState) =>
-              prevState.filter((item) => item.id !== plant.id)
-            );
-          } catch (err) {
-            Alert.alert(err as string);
-          }
-        },
-      },
-    ]);
-  }
 
   function renderNoPlants() {
     return (
@@ -102,7 +46,7 @@ export function MyPlants() {
         <>
           <View style={styles.spotlight}>
             <Image source={waterDrop} style={styles.spotlightImage} />
-            <Text style={styles.spotlightText}>{nextWaterd}</Text>
+            <Text style={styles.spotlightText}>{nextWatered}</Text>
           </View>
           <View style={styles.plants}>
             <Text style={styles.plantTitle}>Próximas Regadas</Text>
@@ -112,7 +56,7 @@ export function MyPlants() {
               renderItem={({ item }) => (
                 <PlantCardWaterd
                   data={item}
-                  handleRemove={() => handleRemovePlant(item)}
+                  handleRemove={() => plantRemove(item)}
                 />
               )}
               showsVerticalScrollIndicator={false}

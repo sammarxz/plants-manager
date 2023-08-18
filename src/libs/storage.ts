@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import { storageKeys } from '@/config/keys';
 
 export interface Plant {
-  id: string;
+  id: string | number;
   name: string;
   about: string;
   water_tips: string;

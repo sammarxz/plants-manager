@@ -11,6 +11,8 @@ import { RootStackParamList } from "@/routes/root.routes";
 import { Plant } from "@/libs/storage";
 
 import { styles } from "./styles";
+import { usePlantSelection } from "@/hooks";
+import { PlantFetchAPIResultType } from "@/hooks/usePlantSelection";
 
 type PlantSelectionProps = StackNavigationProp<
   RootStackParamList,
@@ -24,22 +26,10 @@ interface Environment {
 
 export function PlantSelection() {
   const [selectedEnvironment, setSelectedEnvironment] = useState("all");
-  const [isLoading, setLoading] = useState(true);
-  const [plants, setPlants] = useState<Plant[]>([]);
   const navigation = useNavigation<PlantSelectionProps>();
-
-  useEffect(() => {
-    // Simulate a loading delay
-    const timer = setTimeout(async () => {
-      const fetchedPlants = await data.plants.sort((a, b) =>
-        a.name.localeCompare(b.name)
-      );
-      setPlants((prevPlants) => [...prevPlants, ...fetchedPlants]);
-      setLoading(false);
-    }, 1500);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const { isLoading, filteredPlants } = usePlantSelection({
+    selectedEnvironment,
+  });
 
   const sortedEnvironments = data.plants_environments.sort((a, b) =>
     a.title.localeCompare(b.title)
@@ -47,13 +37,6 @@ export function PlantSelection() {
 
   const allEnvironment: Environment = { key: "all", title: "Todos" };
   const environments: Environment[] = [allEnvironment, ...sortedEnvironments];
-
-  const filteredPlants =
-    selectedEnvironment === "all"
-      ? plants
-      : plants.filter((plant) =>
-          plant.environments.includes(selectedEnvironment)
-        );
 
   function handlePlantSelect(plant: Plant) {
     navigation.navigate("PlantSave", { plant });
@@ -93,7 +76,10 @@ export function PlantSelection() {
         <FlatList
           data={filteredPlants}
           renderItem={({ item }) => (
-            <PlantCard data={item} onPress={() => handlePlantSelect(item)} />
+            <PlantCard
+              data={item}
+              onPress={() => handlePlantSelect(item as Plant)}
+            />
           )}
           showsVerticalScrollIndicator={false}
           horizontal={false}
